@@ -427,7 +427,12 @@ async function main(): Promise<void> {
 
 // Run if executed directly
 if (require.main === module) {
-  main();
+  main().then(() => {
+    console.log('\n✅ Module 3 completed successfully');
+  }).catch((error) => {
+    console.error('❌ Module 3 failed:', error);
+    process.exit(1);
+  });
 }
 
 // Export for module use
