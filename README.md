@@ -54,6 +54,7 @@ src/
 | `npm run build` | Compile TypeScript to JavaScript |
 | `npm run test` | Run unit tests |
 | `npm run typecheck` | Type-check without emitting |
+| `npm run lint` | Run linting |
 | `npm run module1:prompting` | Run basic prompting example |
 | `npm run module1:quasi` | Run quasi-agent example |
 | `npm run module1:agent` | Run full agent loop |
