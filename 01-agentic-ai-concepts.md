@@ -25,7 +25,36 @@ Want autonomous agent
 
 ![agent loop](imgs/agent-loop.png)
 
+```mermaid
+flowchart TD
+    Human([Human])
+    AI[AI]
+    Computer([Computer])
+    Term[Termination Criteria Reached\nReturn Result]
+
+    Human -->|Task| AI
+    AI -->|Prompt → Response → Action| Computer
+    Computer -->|Get Feedback on Result| AI
+    AI --> Term
+```
+
 ![Detailed Agent Loop](imgs/detailed-agent-loop.png)
+
+```mermaid
+flowchart TD
+    subgraph Inner[" "]
+        S1[1. Construct Prompt] --> S2[2. Generate Response]
+        S2 --> S3[3. Parse Response]
+        S3 --> S4[4. Execute Action]
+        S4 --> S5[5. Convert Result to String]
+        S5 --> S6[6. Continue Loop?]
+        S6 --> S1
+    end
+
+    AI[AI] -->|Prompt → Response → Action| Computer([Computer])
+    Computer -->|Get Feedback on Result| AI
+    Inner -.->|zoomed view of| AI
+```
 
 Has agency
 
@@ -85,11 +114,40 @@ LLMs are stateless
 
 ![Extract Actions](imgs/extract-actions.png)
 
+```mermaid
+flowchart TD
+    Human([Human])
+    AI[AI]
+    Computer([Computer])
+    Term[Termination Criteria Reached\nReturn Result]
+
+    Human -->|Task| AI
+    AI -->|Action / Tool| Computer
+    Computer -->|Get Feedback on Result| AI
+    AI --> Term
+```
+
 Narrow down so we don't get as much chatty, non-deterministic responses.
 
 ### Prompt Engineering + Parsing
 
 ![Parse Response](imgs/parse-response.png)
+
+```mermaid
+flowchart TD
+    subgraph Inner[" "]
+        S1["1. Construct Prompt 🔶"] --> S2["2. Generate Response 🔶"]
+        S2 --> S3["3. Parse Response 🔶\n← Consistent Action\nRepresentation In Output"]
+        S3 --> S4[4. Execute Action]
+        S4 --> S5[5. Convert Result to String]
+        S5 --> S6[6. Continue Loop?]
+        S6 --> S1
+    end
+
+    AI[AI] -->|Action / Tool| Computer([Computer])
+    Computer -->|Get Feedback on Result| AI
+    Inner -.->|zoomed view of| AI
+```
 
 ## Building your first Agent
 
