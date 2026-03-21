@@ -26,20 +26,28 @@ Want autonomous agent
 ![agent loop](imgs/agent-loop.png)
 
 ```mermaid
-flowchart LR
+flowchart TD
     Human([Human])
     AI[AI]
+    Prompt[Prompt]
+    Response[Response]
+    Action[Action]
     Computer([Computer])
+    Feedback[Get Feedback on Result]
     Term["Termination Criteria Reached\nReturn Result"]
 
     Human -->|Task| AI
-    AI -->|"Prompt\nResponse\nAction"| Computer
-    Computer -->|"Get Feedback\non Result"| AI
+    AI --> Prompt --> Response --> Action --> Computer
+    Computer --> Feedback --> AI
     AI --> Term
 
     style Human fill:#e87338,stroke:#e87338,color:#000
     style AI fill:#e87338,stroke:#e87338,color:#000
+    style Prompt fill:#555,stroke:#888,color:#fff
+    style Response fill:#555,stroke:#888,color:#fff
+    style Action fill:#555,stroke:#888,color:#fff
     style Computer fill:#1bbccc,stroke:#1bbccc,color:#000
+    style Feedback fill:#555,stroke:#888,color:#fff
     style Term fill:#e87338,stroke:#e87338,color:#000
 ```
 
