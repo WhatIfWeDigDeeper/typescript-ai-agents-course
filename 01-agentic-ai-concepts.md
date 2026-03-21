@@ -33,7 +33,7 @@ flowchart LR
     Term["Termination Criteria Reached\nReturn Result"]
 
     Human -->|Task| AI
-    AI -->|"Prompt →\nResponse →\nAction"| Computer
+    AI -->|"Prompt\n→Response\n→Action"| Computer
     Computer -->|"Get Feedback\non Result"| AI
     AI --> Term
 
@@ -147,11 +147,14 @@ Narrow down so we don't get as much chatty, non-deterministic responses.
 ```mermaid
 flowchart LR
     S1["1. Construct Prompt"] --> S2["2. Generate Response"]
-    S2 --> S3["3. Parse Response\n← Consistent Action\nRepresentation In Output"]
+    S2 --> S3["3. Parse Response"]
     S3 --> S4["4. Execute Action"]
     S4 --> S5["5. Convert Result to String"]
     S5 --> S6["6. Continue Loop?"]
     S6 --> S1
+
+    Note>"Consistent Action\nRepresentation In Output"]
+    Note -.-> S3
 
     style S1 fill:#e87338,stroke:#e87338,color:#000
     style S2 fill:#e87338,stroke:#e87338,color:#000
@@ -159,7 +162,10 @@ flowchart LR
     style S4 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
     style S5 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
     style S6 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style Note fill:#1bbccc,stroke:#1bbccc,color:#000
 ```
+
+*This loop is the zoomed-in view of the AI step in the agent loop — structured output from step 3 is what allows the Computer to execute the correct action.*
 
 ## Building your first Agent
 
