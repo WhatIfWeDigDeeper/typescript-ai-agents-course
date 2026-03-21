@@ -23,8 +23,6 @@ The transformer model was first tested on translation. Translating human languag
 
 Want autonomous agent
 
-![agent loop](imgs/agent-loop.png)
-
 ```mermaid
 flowchart TD
     Human([Human])
@@ -50,8 +48,6 @@ flowchart TD
     style Feedback fill:#555,stroke:#888,color:#fff
     style Term fill:#e87338,stroke:#e87338,color:#000
 ```
-
-![Detailed Agent Loop](imgs/detailed-agent-loop.png)
 
 ```mermaid
 flowchart TD
@@ -126,8 +122,6 @@ LLMs are stateless
 
 ## Adding Structure to AI Agent Outputs
 
-![Extract Actions](imgs/extract-actions.png)
-
 ```mermaid
 flowchart LR
     Human([Human])
@@ -149,8 +143,6 @@ flowchart LR
 Narrow down so we don't get as much chatty, non-deterministic responses.
 
 ### Prompt Engineering + Parsing
-
-![Parse Response](imgs/parse-response.png)
 
 ```mermaid
 flowchart TD
