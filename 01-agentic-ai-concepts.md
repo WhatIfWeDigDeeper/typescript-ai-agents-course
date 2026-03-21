@@ -33,7 +33,7 @@ flowchart LR
     Term["Termination Criteria Reached\nReturn Result"]
 
     Human -->|Task| AI
-    AI -->|"Prompt\n→Response\n→Action"| Computer
+    AI -->|"Prompt\nResponse\nAction"| Computer
     Computer -->|"Get Feedback\non Result"| AI
     AI --> Term
 
