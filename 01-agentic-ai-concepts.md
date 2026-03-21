@@ -54,7 +54,7 @@ flowchart TD
 ![Detailed Agent Loop](imgs/detailed-agent-loop.png)
 
 ```mermaid
-flowchart LR
+flowchart TD
     S1[1. Construct Prompt] --> S2[2. Generate Response]
     S2 --> S3[3. Parse Response]
     S3 --> S4[4. Execute Action]
@@ -153,7 +153,7 @@ Narrow down so we don't get as much chatty, non-deterministic responses.
 ![Parse Response](imgs/parse-response.png)
 
 ```mermaid
-flowchart LR
+flowchart TD
     S1["1. Construct Prompt"] --> S2["2. Generate Response"]
     S2 --> S3["3. Parse Response"]
     S3 --> S4["4. Execute Action"]
