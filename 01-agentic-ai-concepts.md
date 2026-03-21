@@ -26,34 +26,40 @@ Want autonomous agent
 ![agent loop](imgs/agent-loop.png)
 
 ```mermaid
-flowchart TD
+flowchart LR
     Human([Human])
     AI[AI]
     Computer([Computer])
-    Term[Termination Criteria Reached\nReturn Result]
+    Term["Termination Criteria Reached\nReturn Result"]
 
     Human -->|Task| AI
-    AI -->|Prompt → Response → Action| Computer
-    Computer -->|Get Feedback on Result| AI
+    AI -->|"Prompt →\nResponse →\nAction"| Computer
+    Computer -->|"Get Feedback\non Result"| AI
     AI --> Term
+
+    style Human fill:#e87338,stroke:#e87338,color:#000
+    style AI fill:#e87338,stroke:#e87338,color:#000
+    style Computer fill:#1bbccc,stroke:#1bbccc,color:#000
+    style Term fill:#e87338,stroke:#e87338,color:#000
 ```
 
 ![Detailed Agent Loop](imgs/detailed-agent-loop.png)
 
 ```mermaid
-flowchart TD
-    subgraph Inner[" "]
-        S1[1. Construct Prompt] --> S2[2. Generate Response]
-        S2 --> S3[3. Parse Response]
-        S3 --> S4[4. Execute Action]
-        S4 --> S5[5. Convert Result to String]
-        S5 --> S6[6. Continue Loop?]
-        S6 --> S1
-    end
+flowchart LR
+    S1[1. Construct Prompt] --> S2[2. Generate Response]
+    S2 --> S3[3. Parse Response]
+    S3 --> S4[4. Execute Action]
+    S4 --> S5[5. Convert Result to String]
+    S5 --> S6[6. Continue Loop?]
+    S6 --> S1
 
-    AI[AI] -->|Prompt → Response → Action| Computer([Computer])
-    Computer -->|Get Feedback on Result| AI
-    Inner -.->|zoomed view of| AI
+    style S1 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S2 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S3 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S4 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S5 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S6 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
 ```
 
 Has agency
@@ -115,16 +121,21 @@ LLMs are stateless
 ![Extract Actions](imgs/extract-actions.png)
 
 ```mermaid
-flowchart TD
+flowchart LR
     Human([Human])
     AI[AI]
     Computer([Computer])
-    Term[Termination Criteria Reached\nReturn Result]
+    Term["Termination Criteria Reached\nReturn Result"]
 
     Human -->|Task| AI
-    AI -->|Action / Tool| Computer
-    Computer -->|Get Feedback on Result| AI
+    AI -->|"Action /\nTool"| Computer
+    Computer -->|"Get Feedback\non Result"| AI
     AI --> Term
+
+    style Human fill:#555,stroke:#888,color:#fff
+    style AI fill:#ddd,stroke:#aaa,color:#000
+    style Computer fill:#1bbccc,stroke:#1bbccc,color:#000
+    style Term fill:#555,stroke:#888,color:#fff
 ```
 
 Narrow down so we don't get as much chatty, non-deterministic responses.
@@ -134,19 +145,20 @@ Narrow down so we don't get as much chatty, non-deterministic responses.
 ![Parse Response](imgs/parse-response.png)
 
 ```mermaid
-flowchart TD
-    subgraph Inner[" "]
-        S1["1. Construct Prompt 🔶"] --> S2["2. Generate Response 🔶"]
-        S2 --> S3["3. Parse Response 🔶\n← Consistent Action\nRepresentation In Output"]
-        S3 --> S4[4. Execute Action]
-        S4 --> S5[5. Convert Result to String]
-        S5 --> S6[6. Continue Loop?]
-        S6 --> S1
-    end
+flowchart LR
+    S1["1. Construct Prompt"] --> S2["2. Generate Response"]
+    S2 --> S3["3. Parse Response\n← Consistent Action\nRepresentation In Output"]
+    S3 --> S4["4. Execute Action"]
+    S4 --> S5["5. Convert Result to String"]
+    S5 --> S6["6. Continue Loop?"]
+    S6 --> S1
 
-    AI[AI] -->|Action / Tool| Computer([Computer])
-    Computer -->|Get Feedback on Result| AI
-    Inner -.->|zoomed view of| AI
+    style S1 fill:#e87338,stroke:#e87338,color:#000
+    style S2 fill:#e87338,stroke:#e87338,color:#000
+    style S3 fill:#e87338,stroke:#e87338,color:#000
+    style S4 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S5 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
+    style S6 fill:#1a3a5c,stroke:#4a7fb5,color:#fff
 ```
 
 ## Building your first Agent
