@@ -159,4 +159,143 @@ Comparison
 
 ## Putting It All Together: Document Your Code with a README Agent
 
+### Class Diagram — Module 3 Structure
+
+The class diagram shows how the GAME components compose together and how `GAMEAgent` delegates to `AgentBuilder` at runtime. The `AgentLanguage` hierarchy is the key extension point — swapping the language changes how the agent communicates without touching goals, tools, or memory.
+
+```mermaid
+classDiagram
+    direction TD
+
+    class GAMEAgent {
+        -goals Goal[]
+        -registry ToolRegistry
+        -memory ConversationMemory
+        -environment Environment
+        -llm LLM
+        -language AgentLanguage
+        +addGoal(name, desc, priority) this
+        +setLanguage(language) this
+        +run(context?) ConversationMemory
+    }
+
+    class AgentLanguage {
+        <<abstract>>
+        +constructPrompt(ctx) Prompt
+        +parseResponse(res) ParsedAction
+    }
+
+    class FunctionCallingLanguage
+    class JsonActionLanguage
+    class NaturalLanguage
+
+    class AgentBuilder {
+        +withGoals() AgentBuilder
+        +withLanguage() AgentBuilder
+        +withRegistry() AgentBuilder
+        +withLLM() AgentBuilder
+        +withEnvironment() AgentBuilder
+        +verbose() AgentBuilder
+        +build() Agent
+    }
+
+    class Agent {
+        +run(input, memory?) ConversationMemory
+    }
+
+    class ToolRegistry {
+        +getTools() Tool[]
+        +execute(name, args) unknown
+        +isTerminal(name) boolean
+    }
+
+    class Environment {
+        +workingDirectory string
+        +executeAction(registry, name, args)
+    }
+
+    class ConversationMemory {
+        +add(item)
+        +getItems() MemoryItem[]
+    }
+
+    class LLM {
+        +generate(prompt) string
+    }
+
+    class ReadmeCreatorConfig {
+        <<interface>>
+        +targetDir string
+        +fileExtension string
+        +outputPath string
+        +writeToStdout boolean
+        +verbose boolean
+    }
+
+    AgentLanguage <|-- FunctionCallingLanguage
+    AgentLanguage <|-- JsonActionLanguage
+    AgentLanguage <|-- NaturalLanguage
+
+    GAMEAgent *-- ToolRegistry
+    GAMEAgent *-- ConversationMemory
+    GAMEAgent *-- Environment
+    GAMEAgent *-- LLM
+    GAMEAgent *-- AgentLanguage
+    GAMEAgent ..> AgentBuilder : delegates to run()
+    AgentBuilder ..> Agent : builds
+
+    ReadmeCreatorConfig ..> AgentBuilder : createReadmeCreatorAgent()
+    ReadmeCreatorConfig ..> Environment : workingDirectory
+    ReadmeCreatorConfig ..> ToolRegistry : readme_tools + system tags
+```
+
+### Sequence Diagram — README Agent Execution Loop
+
+The sequence diagram shows what actually happens when the agent runs. Each iteration the language layer constructs a prompt (goals + memory + available tools), the LLM picks a tool, and the environment executes it. The loop continues until a `terminal: true` tool is called.
+
+```mermaid
+sequenceDiagram
+    participant CLI
+    participant Factory as createReadmeCreatorAgent
+    participant Builder as AgentBuilder
+    participant Agent
+    participant Lang as FunctionCallingLanguage
+    participant LLM
+    participant Env as Environment
+    participant Tool
+
+    CLI->>Factory: createReadmeCreatorAgent(config)
+    Factory->>Factory: registerReadmeTools(config)
+    Factory->>Builder: withGoals / withLanguage / withRegistry / withLLM / withEnvironment
+    Builder->>Agent: build()
+    CLI->>Agent: run("Analyze .ts files and generate README...")
+
+    loop Agent loop (until terminal tool)
+        Agent->>Lang: constructPrompt(goals, memory, tools)
+        Lang-->>Agent: Prompt
+        Agent->>LLM: generate(prompt)
+        LLM-->>Agent: tool call response
+
+        Agent->>Lang: parseResponse(response)
+        Lang-->>Agent: ParsedAction { tool, args }
+
+        Agent->>Env: executeAction(registry, tool, args)
+        Env->>Tool: execute(args)
+
+        alt listFiles
+            Tool-->>Env: ["Agent.ts", "Tool.ts", ...]
+        else readFile
+            Tool-->>Env: file contents
+        else writeReadme
+            Tool-->>Env: "README written (N characters)"
+        else terminate  [terminal: true]
+            Tool-->>Env: summary message
+        end
+
+        Env-->>Agent: ActionResultEnvelope
+        Agent->>Agent: updateMemory(action, result)
+    end
+
+    Agent-->>CLI: ConversationMemory
+```
 
