@@ -112,3 +112,51 @@ Ask me for the first task to perform.
 ### Summary
 
 > Through this iterative process of simulation, observation, and refinement, you develop a deep understanding of how your agent will behave in the real world... And simulation helps you verify that structure before you write a single line of implementation code.
+
+## Modular AI Agent Design
+
+> Benefits of the GAME Framework
+> This modular approach provides several key benefits:
+
+> 1. Separation of Concerns: Each component (Goals, Actions, Memory, Environment) has a clear, focused responsibility.
+> 2. Reusability: The core agent loop can remain unchanged while we swap out different goals, actions, or memory strategies.
+> 3. Testability: Each component can be tested independently.
+> 4. Extensibility: We can easily add new actions, change memory strategies, or modify goals without touching the core loop.
+
+## Agent Loop Customization
+
+The Flow of Information Through the Loop
+
+1. The `Memory` provides context about past decisions and results
+2. The `Goals` define what the agent is trying to accomplish
+3. The `ActionRegistry` defines what tools the agent can use
+4. The `AgentLanguage` formats `Goals`, `Actions`, and `Memory` into a prompt
+5. The LLM generates a response choosing an action
+6. The `AgentLanguage` parses the response into a structured action
+7. The `Environment` executes the action with the given arguments
+8. The result is stored back in memory
+9. The loop repeats until termination
+
+## Implementing GAME in Code
+
+Benefits of the GAME Structure (see benefits of the GAME Framework above)
+
+1. Better Organization: Each component (Goals, Actions, Memory, Environment) has a clear responsibility
+2. Reusability: Swap environments for testing, share tools across agents
+3. Extensibility: Add new goals and actions without modifying the core loop
+
+The same agent loop works with completely different behaviors just by changing the GAME components.
+
+## How Your Agent Communicates with the LLM: The Agent Language
+
+Comparison
+
+| Strategy | Use Case | Reliability | Shows Reasoning |
+|----------|----------|-------------|-----------------|
+| NaturalLanguage | Simple Q&A | High | Yes |
+| JsonActionLanguage | Debugging | Medium | Yes |
+| FunctionCallingLanguage | Production | Highest | No |
+
+## Putting It All Together: Document Your Code with a README Agent
+
+

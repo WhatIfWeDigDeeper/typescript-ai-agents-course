@@ -19,6 +19,7 @@
     "module2:function-calling": "ts-node src/module2/FunctionCallingExample.ts",
     "module2:agent": "ts-node src/module2/AgentLoopFunctionCalling.ts",
     "module3:game": "ts-node src/module3/GAMEAgent.ts",
+    "module3:readme": "ts-node src/module3/ReadmeCreatorAgent.ts",
     "module4:self-prompting": "ts-node src/module4/SelfPromptingAgent.ts"
   },
   "keywords": [
