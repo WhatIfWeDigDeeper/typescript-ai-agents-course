@@ -60,6 +60,7 @@ src/
 | `npm run module2:function-calling` | Run function calling example |
 | `npm run module2:agent` | Run agent with function calling |
 | `npm run module3:game` | Run GAME framework agent |
+| `npm run module3:readme` | Run README generator agent |
 | `npm run module4:self-prompting` | Run self-prompting agent |
 
 ## Module Overview
