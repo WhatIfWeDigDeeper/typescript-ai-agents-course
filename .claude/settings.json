@@ -1,0 +1,94 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Fetch",
+      "Write",
+      "Edit",
+      "Read",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "Search",
+      "Skill(playwright-cli:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Write(.env)",
+      "Edit(.env)",
+      "Bash(rm -rf /)",
+      "Bash(sudo *)",
+      "Bash(chmod 777 *)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"Claude needs your permission\" -sound Glass"
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"Claude has a question for you\" -sound Glass"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "terminal-notifier -title \"Claude Code\" -message \"Claude is waiting for your input\" -sound Glass"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowUnixSockets": [
+        "/var/run/docker.sock"
+      ],
+      "allowLocalBinding": true,
+      "allowedHosts": [
+        "github.com",
+        "registry.npmjs.org"
+      ]
+    },
+    "excludedCommands": [
+      "docker",
+      "gh",
+      "git",
+      "psql",
+      "mysql",
+      "mongosh",
+      "npm",
+      "npx",
+      "playwright",
+      "redis-cli",
+      "uv"
+    ]
+  }
+}

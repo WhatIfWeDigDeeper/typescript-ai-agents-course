@@ -23,19 +23,19 @@
  */
 
 /** Successful result with a value */
-interface SuccessResult<T> {
+export interface ActionResultSuccess<T> {
   readonly success: true;
   readonly value: T;
 }
 
 /** Failed result with an error message */
-interface ErrorResult {
+export interface ActionResultError {
   readonly success: false;
   readonly error: string;
 }
 
 /** Discriminated union of success and error results */
-export type ActionResult<T = unknown> = SuccessResult<T> | ErrorResult;
+export type ActionResult<T = unknown> = ActionResultSuccess<T> | ActionResultError;
 
 /**
  * Factory functions for creating ActionResults.
@@ -102,14 +102,14 @@ export const ActionResult = {
   /**
    * Checks if a result is successful (type guard).
    */
-  isSuccess<T>(result: ActionResult<T>): result is SuccessResult<T> {
+  isSuccess<T>(result: ActionResult<T>): result is ActionResultSuccess<T> {
     return result.success;
   },
 
   /**
    * Checks if a result is an error (type guard).
    */
-  isError<T>(result: ActionResult<T>): result is ErrorResult {
+  isError<T>(result: ActionResult<T>): result is ActionResultError {
     return !result.success;
   },
 

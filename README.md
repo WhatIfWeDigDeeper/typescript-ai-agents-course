@@ -1,6 +1,6 @@
 # TypeScript AI Agents Tutorial
 
-Learn to build AI agents from scratch using modern TypeScript patterns.
+Learn to build AI agents from scratch using modern TypeScript patterns. Repository for [Coursera course: AI Agents in Typescript/Javascript with Generative AI](https://www.coursera.org/learn/ai-agents-javascript-typescript)
 
 ## Quick Start
 

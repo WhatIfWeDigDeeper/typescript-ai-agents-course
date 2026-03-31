@@ -12,7 +12,7 @@
 // Core types
 export { Message, Role } from './Message';
 export { Action, ToolArgs } from './Action';
-export { ActionResult } from './ActionResult';
+export { ActionResult, ActionResultSuccess, ActionResultError } from './ActionResult';
 export { Tool, ToolParameters } from './Tool';
 export { Prompt, PromptMetadata } from './Prompt';
 export { Memory } from './Memory';
