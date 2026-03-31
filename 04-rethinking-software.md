@@ -24,3 +24,7 @@ Summarizing meetings does not take the full potential of AI. Can ask AI.
 ## New Ways to Access and Extract Information
 
 Can take a picture of an appliance and ask for instructions. Before would have had to Google for it, find the right image, and then search through the manual or user guide. Now it's one shot.
+
+---
+
+[← Previous](03-game-framework.md) | Next → | [Home](README.md)

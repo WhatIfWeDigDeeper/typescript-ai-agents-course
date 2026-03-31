@@ -332,3 +332,7 @@ The "local execution" framing does capture something real — tools run in *your
 **The broader pattern**
 
 This same convention shows up in OpenAI's API (they do have a `tool` role, but it was added later as a refinement), and in how most multi-modal inputs work — images, documents, etc. all come in on the `user` turn. The `user` role effectively means **"everything that isn't the model."**
+
+---
+
+← Previous | [Next →](02-ai-agents-tools-actions-language.md) | [Home](README.md)

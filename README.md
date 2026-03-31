@@ -91,6 +91,17 @@ A structured approach to agent design:
 
 Advanced patterns for agent delegation and self-improvement.
 
+## Course Notes
+
+Supplementary notes for each module:
+
+| # | Title |
+|---|-------|
+| 1 | [Agentic AI Concepts](01-agentic-ai-concepts.md) |
+| 2 | [AI Agents, Tools, Actions, and Language](02-ai-agents-tools-actions-language.md) |
+| 3 | [GAME: A Conception Framework for AI Agents](03-game-framework.md) |
+| 4 | [Rethinking How Software is Built in the Age of AI Agents](04-rethinking-software.md) |
+
 ## Testing
 
 ```bash

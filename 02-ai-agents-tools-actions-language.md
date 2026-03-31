@@ -326,3 +326,7 @@ In the context of **GAIL**, this schema serves as the bridge between **Action** 
 **Would you like me to show you a Python pseudocode example of how the loop handles this specific tool call to exit?**
 
 </details>
+
+---
+
+[← Previous](01-agentic-ai-concepts.md) | [Next →](03-game-framework.md) | [Home](README.md)
